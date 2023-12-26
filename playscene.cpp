@@ -4,13 +4,14 @@
 #include <QMenu>
 #include <QPainter>
 #include <QTimer>
+#include <QLabel>
 #include "mypushbutton.h"
 
 PlayScene::PlayScene(int _index, QWidget *parent)
     : QMainWindow{parent}
     , levelIndex(_index)
 {
-    qDebug() << "当前关卡为" << _index;
+    qDebug() << "current level:" << _index;
     // 设置窗口固定大小
     setFixedSize(320, 588);
     // 设置图标
@@ -43,6 +44,27 @@ PlayScene::PlayScene(int _index, QWidget *parent)
             emit chooseSceneBack();
         });
     });
+
+    // 显示当前关卡标题
+    QLabel *label = new QLabel(this);
+    QFont font;
+    font.setFamily("华文新魏");
+    font.setPointSize(20);
+    label->setFont(font);
+    QString str = QString("Level:%1").arg(levelIndex);
+    label->setText(str);
+    label->setGeometry(QRect(30, height() - 50, 140, 50)); // 设置大小和位置
+
+    // 创建金币的背景图片
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            // 绘制北京图片
+            QLabel *label = new QLabel(this);
+            label->setGeometry(0, 0, 50, 50);
+            label->setPixmap(QPixmap(":/res/BoardNode.png"));
+            label->move(57 + i * 50, 200 + j * 50);
+        }
+    }
 }
 
 void PlayScene::paintEvent(QPaintEvent *event)

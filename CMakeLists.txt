@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(17-coinFlip VERSION 0.1 LANGUAGES CXX)
+project(CoinFlip VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -20,23 +20,23 @@ set(PROJECT_SOURCES
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(17-coinFlip
+    qt_add_executable(CoinFlip
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
     )
 # Define target properties for Android with Qt 6 as:
-#    set_property(TARGET 17-coinFlip APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+#    set_property(TARGET CoinFlip APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
     if(ANDROID)
-        add_library(17-coinFlip SHARED
+        add_library(CoinFlip SHARED
             ${PROJECT_SOURCES}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
-        add_executable(17-coinFlip
+        add_executable(CoinFlip
             ${PROJECT_SOURCES}
             res.qrc
             mypushbutton.h mypushbutton.cpp
@@ -46,15 +46,15 @@ else()
     endif()
 endif()
 
-target_link_libraries(17-coinFlip PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(CoinFlip PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
 if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.17-coinFlip)
+  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.CoinFlip)
 endif()
-set_target_properties(17-coinFlip PROPERTIES
+set_target_properties(CoinFlip PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -63,12 +63,12 @@ set_target_properties(17-coinFlip PROPERTIES
 )
 
 include(GNUInstallDirs)
-install(TARGETS 17-coinFlip
+install(TARGETS CoinFlip
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(17-coinFlip)
+    qt_finalize_executable(CoinFlip)
 endif()
